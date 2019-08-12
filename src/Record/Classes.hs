@@ -12,7 +12,7 @@ import HList
 import Record.Types
 
 -- Class representing whether a record lacks a field
-class Lacks k (o :: Row Symbol *)
+class Lacks k o
 
 -- An empty record lacks any key
 instance
@@ -20,13 +20,13 @@ instance
 
 -- A record where the head doesn't match the key
 -- lacks the key if the rest of the record lacks it
-instance ((k == l) ~ False, Lacks k o) =>
-  Lacks k ((l := v) : o)
+instance ((k == l) ~ False, Lacks k r) =>
+  Lacks k ((l := v) : r)
 
 -- Get all occurrences of a field in a record
-class Values k o vs | k o -> vs
+class Values k r vs | k r -> vs
   where
-  values :: Proxy k -> Record o -> HList vs
+  values :: Proxy k -> Record r -> HList vs
 
 instance
   Values k '[] '[]
@@ -51,19 +51,19 @@ only k r = case (values k r) of
 -- Remove a field from a record
 class Remove k r r' | k r -> r'
   where
-  remove :: Proxy k -> Record r -> Record r'
+  remove :: Lacks k r' => Proxy k -> Record r -> Record r'
 
-instance (Lacks k r) =>
-  Remove k r r
+instance
+  Remove k '[] '[]
   where
-  remove _ r = r
+  remove _ = id
 
-instance (Remove k r r') =>
+instance Remove k r r' =>
   Remove k ((k := v) : r) r'
   where
-  remove k (With _ r) = (remove k r)
+  remove k (With _ r) = remove k r
 
-instance ((k == l) ~ False, Remove k r r') =>
+instance ((k == l) ~ False, Remove k r r', Lacks k r') =>
   Remove k ((l := v) : r) ((l := v) : r')
   where
   remove k (With a r) = With a (remove k r)
@@ -98,10 +98,13 @@ instance
   where
   squash = id
 
-instance (Monoid v, Values k r vs, Homogeneous vs v, Remove k r r') =>
-  Squash ((k := v) : r) ((k := v) : r')
+-- FAIL: This doesn't work because the thingus doesn't backtrack correctly
+instance (Monoid v, Values k r vs, Homogeneous vs v, Remove k r s, Lacks k s, Squash s t) =>
+  Squash ((k := v) : r) ((k := v) : t)
   where
-  squash (With (k := v) r) = With (k := (v <> fold (HList.toList (values k r)))) (remove k r)
+  squash (With (k := v) r) = With (k := v') (squash $ remove k r)
+    where
+    v' = v <> fold (HList.toList $ values k r)
 
 -- Records are showable
 class ShowR r where

@@ -27,7 +27,20 @@ f = (#foo := Sum 1) -*- (#quux := "hello") -*- Empty
 g :: Record '["bar" := Sum Int, "quux" := String]
 g = (#bar := Sum 42) -*- (#quux := ", world") -*- Empty
 
-h = squash $ f `append` g
+h :: Record '["foo" := Sum Int, "quux" := String, "bar" := Sum Int, "quux" := String]
+h = f `append` g
+
+i :: HList '[String, String]
+i = values #quux h
+
+j :: Record '["foo" := Sum Int, "bar" := Sum Int]
+j = remove #quux h
+
+k :: Record '["quux" := String, "quux" := String]
+k = (#quux := "Hello, ") -*- (#quux := "World") -*- Empty
+
+-- l :: Record '["quux" := String]
+-- l = squash k
 
 main :: IO ()
 main = print h
