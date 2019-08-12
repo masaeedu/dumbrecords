@@ -1,25 +1,33 @@
 module Main where
 
+import Row
 import Record
+import Record.Classes
+import HList
+import Data.Monoid
 
--- A simple test
-rec1 :: RecordS $ ("foo" -: Int) $ ("quux" -: String) $ Empty
-rec1 = (#foo -: 1) $ (#quux -: "hello") $ EmptyS
+a :: Record '["foo" := String, "bar" := Int]
+a = (#foo := "bar") -*- (#bar := 1) -*- Empty
 
-rec2 :: RecordS $ ("bar" -: Int) $ ("quark" -: String) $ Empty
-rec2 = (#bar -: 42) $ (#quark -: ", world") $ EmptyS
+b :: HList '[Int]
+b = values #bar a
 
-getfoo :: Get "foo" Int o => RecordS o -> Int
-getfoo = get #foo
+c :: Record '["foo" := String, "bar" := Int, "foo" := Int]
+c = (#foo := "bar") -*- (#bar := 1) -*- (#foo := 1) -*- Empty
 
-bar :: Int
-bar = getfoo rec1
+d :: Record '["bar" := Int]
+d = remove #foo c
 
-rec3 :: RecordS $ ("foo" -: Int) $ ("quux" -: String) $ ("bar" -: Int) $ ("quark" -: String) $ Empty
-rec3 = rec1 `append` rec2
+e :: Int
+e = only #bar c
 
-quux :: String
-quux = get #quux rec3
+f :: Record '["foo" := Sum Int, "quux" := String]
+f = (#foo := Sum 1) -*- (#quux := "hello") -*- Empty
+
+g :: Record '["bar" := Sum Int, "quux" := String]
+g = (#bar := Sum 42) -*- (#quux := ", world") -*- Empty
+
+h = squash $ f `append` g
 
 main :: IO ()
-main = print rec3
+main = print h
