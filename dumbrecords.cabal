@@ -33,7 +33,6 @@ library
                      , TypeFamilyDependencies
                      , ScopedTypeVariables
                      , UndecidableInstances
-                     , IncoherentInstances
                      , RebindableSyntax
                      , ImplicitPrelude
   exposed-modules:     Record, HList, Row, Main
