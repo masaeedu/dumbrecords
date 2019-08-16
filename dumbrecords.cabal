@@ -17,24 +17,24 @@ extra-source-files:  CHANGELOG.md
 library
   -- other-modules:
   -- other-extensions:
-  extensions:          GADTs
-                     , KindSignatures
-                     , DataKinds
-                     , PolyKinds
-                     , RankNTypes
-                     , TypeApplications
-                     , OverloadedLabels
-                     , FlexibleInstances
-                     , FlexibleContexts
-                     , MultiParamTypeClasses
-                     , TypeOperators
-                     , AllowAmbiguousTypes
-                     , TypeFamilies
-                     , TypeFamilyDependencies
-                     , ScopedTypeVariables
-                     , UndecidableInstances
-                     , RebindableSyntax
-                     , ImplicitPrelude
+  extensions:            GADTs
+                       , KindSignatures
+                       , DataKinds
+                       , PolyKinds
+                       , RankNTypes
+                       , TypeApplications
+                       , OverloadedLabels
+                       , FlexibleInstances
+                       , FlexibleContexts
+                       , MultiParamTypeClasses
+                       , TypeOperators
+                       , AllowAmbiguousTypes
+                       , TypeFamilies
+                       , TypeFamilyDependencies
+                       , ScopedTypeVariables
+                       , UndecidableInstances
+                       , RebindableSyntax
+                       , ImplicitPrelude
   exposed-modules:     Record, HList, Row, Main
   build-depends:       base >=4.12 && <4.13
   hs-source-dirs:      src
