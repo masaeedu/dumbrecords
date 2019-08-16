@@ -12,7 +12,7 @@ data Record (r :: Row Symbol *)
   With  :: (Assign (Proxy k) v) -> Record r -> Record ((k := v) : r)
 
 -- Some things to make the syntax nice
-fromLabel :: forall k. Proxy k
+fromLabel :: Proxy k
 fromLabel = Proxy
 
 (-*-) = With
