@@ -42,5 +42,8 @@ k = (#quux := "Hello, ") -*- (#quux := "World") -*- Empty
 l :: Record '["quux" := String]
 l = squash k
 
+m :: Record '["foo" := Int, "quux" := String, "bar" := Int]
+m = f `squishyAppend` g
+
 main :: IO ()
 main = print h

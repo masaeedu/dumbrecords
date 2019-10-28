@@ -177,3 +177,6 @@ instance (Lacks k r b, SquashCase b k v r s) =>
   Squash ((k := v) : r) s
   where
   squash (With (k := v) r) = squash' @b k v r
+
+squishyAppend :: (Squash t' t, Append r s t') => Record r -> Record s -> Record t
+squishyAppend r = squash . append r
