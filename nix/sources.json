@@ -11,6 +11,18 @@
         "url": "https://github.com/Infinisil/all-hies/archive/9540f6aaeb9520abfc30729dc003836b790441a0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "ghcide-nix": {
+        "branch": "master",
+        "description": "Nix installation for ghcide",
+        "homepage": "https://github.com/digital-asset/ghcide",
+        "owner": "hercules-ci",
+        "repo": "ghcide-nix",
+        "rev": "fd42f62613d491565c1676821148c008b2011584",
+        "sha256": "1cd60hlr58ih5j21a64rdrmyrh28dhwz0wgmkb3p3j8jmrya8fv7",
+        "type": "tarball",
+        "url": "https://github.com/hercules-ci/ghcide-nix/archive/fd42f62613d491565c1676821148c008b2011584.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
@@ -24,15 +36,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "nixos-unstable",
+        "branch": "nixos-19.03",
         "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
         "repo": "nixpkgs-channels",
-        "rev": "52f3c28df2300c60ca015fc39d48c10f09b8c5ef",
-        "sha256": "1k8qfxy1xwahz3r3knzc8y8y0jik101w15jykxq6ragi355dqx7j",
+        "rev": "aea8dde8b321e373c71eb4e785c1cacd2824c878",
+        "sha256": "092sw0igmnbxg3azkdijhydxl4r9gb1z0593c4nx1d09y3fb5gcb",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs-channels/archive/52f3c28df2300c60ca015fc39d48c10f09b8c5ef.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs-channels/archive/aea8dde8b321e373c71eb4e785c1cacd2824c878.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

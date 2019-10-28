@@ -1,21 +1,23 @@
 let
+  compilerVersion = "ghc864";
   sources = import ./nix/sources.nix;
   pkgs = import sources.nixpkgs {};
-  hie = (import sources.all-hies {}).versions.ghc865;
+  ghcide = (import sources.ghcide-nix {})."ghcide-${compilerVersion}";
 in
 
 with pkgs;
 
 let
-  hpkgs = haskellPackages;
+  hpkgs = haskell.packages."${compilerVersion}";
   btools = [
+    hpkgs.hpack
     hpkgs.cabal-install
     hpkgs.ghcid
     hpkgs.hoogle
     hpkgs.stylish-cabal
-    hie
+    ghcide
   ];
   modifier = drv: haskell.lib.addBuildTools drv btools;
 in
 
-hpkgs.developPackage { root = ./.; inherit modifier; }
+hpkgs.developPackage { root = ./.; inherit modifier; returnShellEnv = false; }
